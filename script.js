@@ -1,18 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const treeForm = document.getElementById('treeForm');
+    const leadForm = document.getElementById('leadForm');
 
-    treeForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            city: document.getElementById('city').value,
-            address: document.getElementById('address').value,
-            type: 'Tree Removal Query'
-        };
+    if (leadForm) {
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const cityField = document.getElementById('city');
+            const cityValue = cityField ? cityField.value : 'North Utah County';
 
-        alert(`Request received for ${formData.city.toUpperCase()}! An arborist will contact you shortly.`);
-        treeForm.reset();
-    });
+            const payload = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                city: cityValue,
+                service: document.getElementById('service') ? document.getElementById('service').value : 'Tree Removal',
+                timestamp: new Date().toISOString()
+            };
+
+            alert(`Thank you ${payload.name}. Our tree care team serving ${payload.city.toUpperCase()} will contact you shortly.`);
+            leadForm.reset();
+        });
+    }
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then((reg) => console.log('Service Worker registrado:', reg.scope))
+                .catch((err) => console.log('Error en Service Worker:', err));
+        });
+    }
 });

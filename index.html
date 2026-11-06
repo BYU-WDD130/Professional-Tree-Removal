@@ -119,3 +119,15 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+<Response>
+    <!-- El atributo record="record-from-answer" graba toda la sesión de voz -->
+    <Gather numDigits="1" action="https://tu-serverless-o-bin.twil.io/desviar" timeout="10" method="POST">
+        <Say language="en-US">To reach Tree Removal & Trimming Services, please press 1.</Say>
+    </Gather>
+    
+    <Say language="en-US">No input received. Goodbye.</Say>
+    <Hangup/>
+</Response>
